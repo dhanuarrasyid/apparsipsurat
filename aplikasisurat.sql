@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Okt 2021 pada 16.55
--- Versi server: 10.4.11-MariaDB
--- Versi PHP: 7.2.28
+-- Generation Time: May 26, 2021 at 05:54 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `aplikasisurat2021`
+-- Database: `aplikasisurat`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE `pengguna` (
@@ -43,17 +42,17 @@ CREATE TABLE `pengguna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pengguna`
+-- Dumping data for table `pengguna`
 --
 
 INSERT INTO `pengguna` (`id`, `username`, `password`, `nama`, `email`, `photo`, `login_session_key`, `email_status`, `password_expire_date`, `password_reset_key`, `user_role_id`) VALUES
-(1, 'admin', '$2y$10$JdOHpHTj0WOr3vm9YA0.RewxnU7SlMJTR1Cm6x3w7uMwWRErUNjo6', 'Muhammad Firandhanu Ar Rasyid', '1831710133', 'http://localhost/appsuratmasukkeluar/uploads/files/1621929810.png', NULL, NULL, '2021-08-26 11:02:24', NULL, 1),
+(1, 'admin', '$2y$10$QVkGPnb1Ag.9Ds8Mhq31iuoRV9/TY8sqrrykLMK1gd4jUEc6hcvtm', 'Administrator', 'admin@gmail.com', 'http://localhost/appsuratmasukkeluar/uploads/files/1621929810.png', NULL, NULL, '2021-08-26 11:02:24', NULL, 1),
 (2, 'user', '$2y$10$pC2c7jyWUK3HwQo4tCeFD..jB7EK4T5jRkMb7P1yMs2Dpnzd.XWbi', 'User', '12452@gamaial.com', 'http://localhost/appsuratmasukkeluar/uploads/files/1622020736.png', NULL, NULL, '2021-08-24 00:00:00', NULL, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -62,7 +61,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`role_id`, `role_name`) VALUES
@@ -72,7 +71,7 @@ INSERT INTO `roles` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `role_permissions`
+-- Table structure for table `role_permissions`
 --
 
 CREATE TABLE `role_permissions` (
@@ -83,7 +82,7 @@ CREATE TABLE `role_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `role_permissions`
+-- Dumping data for table `role_permissions`
 --
 
 INSERT INTO `role_permissions` (`permission_id`, `role_id`, `page_name`, `action_name`) VALUES
@@ -138,7 +137,31 @@ INSERT INTO `role_permissions` (`permission_id`, `role_id`, `page_name`, `action
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `surat_masuk`
+-- Table structure for table `surat_keluar`
+--
+
+CREATE TABLE `surat_keluar` (
+  `No_Agenda` int(15) NOT NULL,
+  `tanggal_surat` date NOT NULL,
+  `Tujuan_surat` varchar(255) NOT NULL,
+  `Nomor_surat` varchar(255) NOT NULL,
+  `perihal` varchar(500) NOT NULL,
+  `file_surat` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surat_keluar`
+--
+
+INSERT INTO `surat_keluar` (`No_Agenda`, `tanggal_surat`, `Tujuan_surat`, `Nomor_surat`, `perihal`, `file_surat`) VALUES
+(1, '2021-05-24', 'Surabaya', '123/2021-SRB', 'Terima Kerjasama', 'http://localhost/appsuratmasukkeluar/uploads/files/ivb7pc36wzgqn_f.jpg'),
+(2, '2021-05-24', 'Surabaya', '123/2021-jkt', 'Persetujuan kerjasama', 'http://localhost/appsuratmasukkeluar/uploads/files/4ekix7gm95zw1fa.pdf'),
+(3, '2021-05-26', 'Surabaya', '123/2021-jkt-90', 'Persetujuan Kerjasam', 'http://localhost/appsuratmasukkeluar/uploads/files/qwmz0v5obs2gtky.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_masuk`
 --
 
 CREATE TABLE `surat_masuk` (
@@ -153,69 +176,83 @@ CREATE TABLE `surat_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `surat_masuk`
+-- Dumping data for table `surat_masuk`
 --
 
 INSERT INTO `surat_masuk` (`No_Agenda`, `Nomor_Surat`, `Tanggal_surat`, `tanggal_terima`, `Asal_surat`, `perihal`, `file_surat`, `penerima`) VALUES
-(1, '2021/PD3/TU/001', '2021-05-25', '2021-05-25', 'Malang', 'Pengumuman Wisuda ke 53 Jurusan Teknologi Informasi ', 'http://localhost:8080/AplikasiArsipSurat/uploads/files/ktbc6nu1s7o9v53.pdf', 'admin'),
-(5, '2021/PD3/TU/002', '2021-10-26', '2021-10-26', 'Surabaya', 'Pengumuman Hasil Seleksi Program Magang Internship', 'http://localhost:8080/AplikasiArsipSurat/uploads/files/hxld89i503jeng2.pdf', 'admin');
+(1, 'PLK/123345', '2021-05-24', '2021-05-24', 'Surabaya', 'Perjanjian Kerjasama Antara dua perusahaan', 'http://localhost/appsuratmasukkeluar/uploads/files/h7td8ly3cpavxi1.jpg', 'admin'),
+(2, '8199882', '2021-05-25', '2021-05-26', 'jabiren', 'Kerjasama', 'http://localhost/appsuratmasukkeluar/uploads/files/n681yqz29f4d53s.pdf', 'admin'),
+(3, '12345678', '2021-05-26', '2021-05-26', 'Surabaya', 'Kerjasama', 'http://localhost/appsuratmasukkeluar/uploads/files/v7j0bps_3wk65fc.pdf', 'admin'),
+(4, '9098-JKt-2021', '2021-05-12', '2021-05-26', 'Surabaya', 'Kerjasama', 'http://localhost/appsuratmasukkeluar/uploads/files/jpy5cfwhdlx3bz4.pdf', 'admin');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `pengguna`
+-- Indexes for table `pengguna`
 --
 ALTER TABLE `pengguna`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`role_id`),
   ADD UNIQUE KEY `role_name` (`role_name`);
 
 --
--- Indeks untuk tabel `role_permissions`
+-- Indexes for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
   ADD PRIMARY KEY (`permission_id`);
 
 --
--- Indeks untuk tabel `surat_masuk`
+-- Indexes for table `surat_keluar`
+--
+ALTER TABLE `surat_keluar`
+  ADD PRIMARY KEY (`No_Agenda`);
+
+--
+-- Indexes for table `surat_masuk`
 --
 ALTER TABLE `surat_masuk`
   ADD PRIMARY KEY (`No_Agenda`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `pengguna`
+-- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
   MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `role_permissions`
+-- AUTO_INCREMENT for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
   MODIFY `permission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
--- AUTO_INCREMENT untuk tabel `surat_masuk`
+-- AUTO_INCREMENT for table `surat_keluar`
+--
+ALTER TABLE `surat_keluar`
+  MODIFY `No_Agenda` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `surat_masuk`
 --
 ALTER TABLE `surat_masuk`
-  MODIFY `No_Agenda` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `No_Agenda` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
